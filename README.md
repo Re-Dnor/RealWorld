@@ -1,6 +1,6 @@
 ## Real-World SPA
 
-### [Deploy](https://real-world-two.vercel.app/)
+### [Link to Deployed app on Vercel](https://real-world-two.vercel.app/)
 
 ### Technologies
 
