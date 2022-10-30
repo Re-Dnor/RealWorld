@@ -1,8 +1,11 @@
+## Realworld app
+
+### [Deploy](https://real-world-two.vercel.app/)
+
 ### Technologies
 
-### [Web](real-world-two.vercel.app)
-
-- React
+- React / react-router
 - TypeScript
 - Redux-toolkit
 - Material UI
+- API [realworld-api](https://api.realworld.io/api-docs/)
