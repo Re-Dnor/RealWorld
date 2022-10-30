@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk  } from "@reduxjs/toolkit";
-import { DataLogin } from "../Components/Login/LoginForm";
-import { DataSignup } from "../Components/Signup/SignupForm";
 import { toast } from "react-toastify";
+import { authState, LoginData, SignupData } from "../../types";
+import { BASE_URL, SLICES_NAMES } from "../../utils/constants";
 
 function setUserData(state, action) {
   state.login = action.payload.user.username;
@@ -13,8 +13,8 @@ function setUserData(state, action) {
 
 export const fetchLogin = createAsyncThunk(
   "auth/fetchLogin",
-  async (data: DataLogin, { rejectWithValue }) => {
-      const URL = "https://api.realworld.io/api/users/login";
+  async (data: LoginData, { rejectWithValue }) => {
+      const URL = `${BASE_URL}/users/login`;
       const body = {
         user: {
           email: data.email,
@@ -28,7 +28,6 @@ export const fetchLogin = createAsyncThunk(
         },
         body: JSON.stringify(body) 
       });
-
       if (response.ok) {
         return response.json();
       } else {
@@ -39,8 +38,8 @@ export const fetchLogin = createAsyncThunk(
 
 export const fetchSignup = createAsyncThunk(
   "auth/fetchSignup",
-  async (data: DataSignup, { rejectWithValue }) => {
-    const URL = "https://api.realworld.io/api/users";
+  async (data: SignupData, { rejectWithValue }) => {
+    const URL = `${BASE_URL}/users`;
     const body = {
       user: {
         username: data.username,
@@ -55,7 +54,6 @@ export const fetchSignup = createAsyncThunk(
       },
       body: JSON.stringify(body) 
     });
-
     if (response.ok) {
       return response.json();
     } else {
@@ -63,14 +61,6 @@ export const fetchSignup = createAsyncThunk(
     }    
   }
 );
-
-export interface authState {
-  login: string;
-  email: string;
-  token: string;
-  image: string;
-  authorization: boolean;
-}
 
 const initialState: authState = {
   login: "",
@@ -81,7 +71,7 @@ const initialState: authState = {
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: SLICES_NAMES.AUTH,
   initialState,
   reducers: {
     logout: (state) => {
@@ -89,6 +79,8 @@ export const authSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
+    // Fetch data for login
+    
     builder.addCase(fetchLogin.pending, (state) => {
       state.authorization = false;
     });
@@ -116,5 +108,4 @@ export const authSlice = createSlice({
 });
 
 export const { logout } = authSlice.actions;
-
 export default authSlice.reducer;

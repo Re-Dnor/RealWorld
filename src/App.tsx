@@ -1,24 +1,27 @@
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./Components/Navbar/Navbar";
-import Content from "./Components/Content/Content";
-import Login from "./Components/Login/Login";
-import Signup from "./Components/Signup/Signup";
-import NotFoundPage from "./Components/NotFoundPage/NotFoundPage";
-import Article from "./Components/Article/Article";
-import Profile from "./Components/Profile/Profile";
+import Header from "./Components/Header";
+import Home from "./Components/Home";
+import Login from "./Components/Authorization/Login";
+import Signup from "./Components/Authorization/Signup";
+import NotFoundPage from "./Components/NotFoundPage";
+import Article from "./Components/Article";
+import Profile from "./Components/Profile";
+import ContentLayout from "./Components/ContentLayout";
 
 function App() {
   return (
     <>
-    <Navbar />
-    <Routes>
-      <Route path="/" element={<Content />} />
-      <Route path="/signin" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/article/:slug" element={<Article />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+      <Header />
+      <ContentLayout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signin" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/article/:slug" element={<Article />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </ContentLayout>
     </>
   );
 }

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import articlesReducer from "./articles-slice";
-import currentArticleReducer from "./currentArticle-slice";
-import commentsReduce from "./comments-slice";
-import authReducer from "./auth-slice";
+import articlesReducer from "../Components/Article/articles-slice";
+import currentArticleReducer from "../Components/Article/currentArticle-slice";
+import commentsReduce from "../Components/Comment/comments-slice";
+import authReducer from "../Components/Authorization/auth-slice";
 
 const store = configureStore({
   reducer: {

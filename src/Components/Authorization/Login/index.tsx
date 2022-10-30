@@ -1,8 +1,8 @@
+import LoginForm from "./LoginForm";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Container, Box,  Typography, Avatar, CssBaseline } from "@mui/material";
-import SignupForm from "./SignupForm";
+import { Avatar, Box, Typography, CssBaseline, Container } from "@mui/material";
 
-function Signup() {
+export default function Login() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -14,16 +14,14 @@ function Signup() {
           alignItems: "center"
         }}
       >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign in
         </Typography>
-        <SignupForm />
+        <LoginForm />
       </Box>
     </Container>
   );
 }
-
-export default Signup;

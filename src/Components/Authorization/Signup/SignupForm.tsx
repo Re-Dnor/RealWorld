@@ -5,14 +5,9 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch, RootState } from "../../store/store";
-import { fetchSignup } from "../../store/auth-slice";
-
-export type DataSignup = {
-  username: string,
-  email: string,
-  password: string,
-};
+import { AppDispatch, RootState } from "../../../store/store";
+import { fetchSignup } from "../auth-slice";
+import { SignupData } from "../../../types";
 
 function SignupForm() {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,7 +27,7 @@ function SignupForm() {
     }),
     onSubmit: async (values) => {
       try {
-        const data: DataSignup = {
+        const data: SignupData = {
           username: values.username,
           email: values.email,
           password: values.password
@@ -47,9 +42,9 @@ function SignupForm() {
   useEffect(() => {
     if (authorization) navigate("/");
   }, [ authorization ]);
-  
+
   return (
-      <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 3 }}>
+    <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 3 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
@@ -97,12 +92,7 @@ function SignupForm() {
           />
         </Grid>
       </Grid>
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        sx={{ mt: 3, mb: 2 }}
-      >
+      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         Sign Up
       </Button>
     </Box>
