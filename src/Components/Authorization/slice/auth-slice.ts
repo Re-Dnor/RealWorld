@@ -9,11 +9,7 @@ function setUserData(state, action) {
   state.email = action.payload.user.email;
   state.image = action.payload.user.username;
   state.authorization = true;
-}
-
-function handleResponse(response, errorHandler) {
-  if (response.ok) return response.json();
-  return errorHandler(response.status);
+  localStorage.setItem("token", action.payload.user.token);
 }
 
 export const fetchLogin = createAsyncThunk("auth/fetchLogin", async (data: LoginData, { rejectWithValue }) => {
@@ -31,7 +27,11 @@ export const fetchLogin = createAsyncThunk("auth/fetchLogin", async (data: Login
     },
     body: JSON.stringify(body)
   });
-  handleResponse(response, rejectWithValue);
+  if (response.ok) {
+    return response.json();
+  } else {
+    return rejectWithValue(response.status);
+  }
 });
 
 export const fetchSignup = createAsyncThunk("auth/fetchSignup", async (data: SignupData, { rejectWithValue }) => {
@@ -50,7 +50,12 @@ export const fetchSignup = createAsyncThunk("auth/fetchSignup", async (data: Sig
     },
     body: JSON.stringify(body)
   });
-  handleResponse(response, rejectWithValue);
+
+  if (response.ok) {
+    return response.json();
+  } else {
+    return rejectWithValue(response.status);
+  }
 });
 
 const initialState: AuthState = {
@@ -66,7 +71,11 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
+      localStorage.removeItem("token");
       state.authorization = false;
+    },
+    login: (state) => {
+      state.authorization = true;
     }
   },
   extraReducers: (builder) => {
@@ -96,5 +105,5 @@ export const authSlice = createSlice({
   }
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, login } = authSlice.actions;
 export default authSlice.reducer;

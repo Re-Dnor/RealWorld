@@ -1,4 +1,6 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./store/store";
 import Header from "./Components/Header/Header";
 import Home from "./Components/Home/Home";
 import Login from "./Components/Authorization/Login/Login";
@@ -7,8 +9,20 @@ import NotFound from "./Components/NotFound/NotFound";
 import Article from "./Components/Article/Article";
 import Profile from "./Components/Profile/Profile";
 import ContentLayout from "./Components/ContentLayout/ContentLayout";
+import { useEffect } from "react";
+import { login } from "./Components/Authorization/slice/auth-slice";
 
 function App() {
+  const { authorization } = useSelector((store: RootState) => store.auth);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      dispatch(login());
+    }
+  }, []);
+
   return (
     <>
       <Header />
@@ -17,8 +31,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/article/:slug" element={<Article />} />
+          <Route path="/profile" element={ authorization ? <Profile /> : <Navigate to="/"/>} />
+          <Route path="/article/:slug" element={authorization ? <Article /> : <Navigate to="/"/>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ContentLayout>

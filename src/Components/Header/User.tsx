@@ -2,10 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../Authorization/slice/auth-slice";
 import { Grid, Button, Typography, Toolbar, AppBar } from "@mui/material";
+import { AppDispatch } from "../../store/store";
 
 function User() {
   const navigation = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     navigation(`${e.currentTarget.name}`);
