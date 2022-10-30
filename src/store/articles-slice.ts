@@ -1,10 +1,19 @@
 import { createSlice, createAsyncThunk  } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { DataArticle } from "../Components/Content/Content";
 
 export const fetchArticles = createAsyncThunk(
   "articles/fetchArticles",
-  async (count: number) => {
-    const URL = `https://api.realworld.io/api/articles?limit=5&offset=${count}`;
+  async (data: DataArticle) => {
+    const { count, filter } = data;
+    let URL;
+    console.log(filter, count);
+    if (filter === "all") {
+      URL = `https://api.realworld.io/api/articles?limit=5&offset=${count}`;
+    } else {
+      URL = `https://api.realworld.io/api/articles?tag=${filter}&limit=5&offset=${count}`;
+    }
+
     const response = await fetch(URL);
     return response.json();
   }
@@ -32,18 +41,23 @@ export interface Article {
 
 export interface ArticlesState {
   articlesList: Article[];
-  loading: boolean
+  loading: boolean;
+  filter: string;
 }
 
 const initialState: ArticlesState = {
   articlesList: [],
-  loading: false
+  loading: false,
+  filter: "all"
 };
 
 export const articlesSlice = createSlice({
   name: "articles",
   initialState,
   reducers: {
+    setAcitveFilter: (state, action) => {
+      state.filter = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchArticles.pending, (state) => {
@@ -60,5 +74,5 @@ export const articlesSlice = createSlice({
   }
 });
 
-// export const { } = articlesSlice.actions;
+export const { setAcitveFilter } = articlesSlice.actions;
 export default articlesSlice.reducer;

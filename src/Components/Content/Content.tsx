@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, CssBaseline, Box, Pagination, Stack, Button, Grid } from "@mui/material";
+import { Container, CssBaseline, Box, Pagination, Stack, Button } from "@mui/material";
 import * as _ from "lodash";
 import CardWrapper from "./CardWrapper";
 import Progress from "../Progress/Progress";
@@ -8,20 +8,33 @@ import { AppDispatch, RootState } from "../../store/store";
 import { fetchArticles, Article } from "../../store/articles-slice";
 import Sidebar from "../Sidebar/Sidebar";
 
+export type DataArticle = {
+  count: number,
+  filter: string
+};
+
 function Content() {
   const [ page, setPage ] = useState(1);
   const dispatch = useDispatch<AppDispatch>();
-  const { articlesList, loading } = useSelector((store: RootState) => store.articles);
+  const { articlesList, loading, filter } = useSelector((store: RootState) => store.articles);
 
   const handleChange = (e: React.MouseEvent<HTMLButtonElement>) => {
     const ariaLabel = e.currentTarget.ariaLabel;
     const currentNumber = +ariaLabel[ariaLabel.length - 1];
+    const data: DataArticle = {
+      count: currentNumber,
+      filter
+    };
     setPage(currentNumber);
-    dispatch(fetchArticles(currentNumber));
+    dispatch(fetchArticles(data));
   };
 
   useEffect(() => {
-    dispatch(fetchArticles(page));
+    const data: DataArticle = {
+      count: page,
+      filter
+    };
+    dispatch(fetchArticles(data));
   }, []);
 
   return (
@@ -33,7 +46,7 @@ function Content() {
         flexDirection: "row",
         alignItems: "start"
       }}>
-        <Sidebar/>
+        <Sidebar page={page}/>
         <Box
         sx={{
           marginTop: 8,
@@ -46,7 +59,6 @@ function Content() {
         }}>
             <Box>
               <Button color="primary" name="profile">Global Feed</Button>
-              <Button color="inherit">huehue</Button>
             </Box>
             { 
               loading ? <Progress/>
