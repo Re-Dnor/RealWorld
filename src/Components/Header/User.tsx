@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../Authorization/auth-slice";
+import { logout } from "../Authorization/slice/auth-slice";
 import { Grid, Button, Typography, Toolbar, AppBar } from "@mui/material";
 
 function User() {

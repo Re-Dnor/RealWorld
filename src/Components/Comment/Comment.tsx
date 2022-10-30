@@ -1,8 +1,8 @@
 import { Typography, CardContent, Card } from "@mui/material";
-import { Comments } from "../../types";
+import { Comment as Com } from "../../types";
 
 type CommentProps = {
-  com: Comments;
+  com: Com;
 };
 
 function Comment({ com }: CommentProps) {

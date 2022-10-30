@@ -6,7 +6,7 @@ import { Box, TextField, Button } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { AppDispatch, RootState } from "../../../store/store";
-import { fetchLogin } from "../auth-slice";
+import { fetchLogin } from "../slice/auth-slice";
 import { LoginData } from "../../../types";
 
 function LoginForm() {

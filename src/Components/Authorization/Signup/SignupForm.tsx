@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../../store/store";
-import { fetchSignup } from "../auth-slice";
+import { fetchSignup } from "../slice/auth-slice";
 import { SignupData } from "../../../types";
 
 function SignupForm() {

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { currentArticle } from "../../types";
-import { BASE_URL, SLICES_NAMES } from "../../utils/constants";
+import { CurrentArticle } from "../../../types";
+import { BASE_URL, SLICES_NAMES } from "../../../utils/constants";
 
 export const fetchSlug = createAsyncThunk("currentArticle/fetchArticle", async (slug: string) => {
   const URL = `${BASE_URL}/articles/${slug}`;
@@ -9,7 +9,7 @@ export const fetchSlug = createAsyncThunk("currentArticle/fetchArticle", async (
   return response.json();
 });
 
-const initialState: currentArticle = {
+const initialState: CurrentArticle = {
   title: null,
   body: null,
   description: null,

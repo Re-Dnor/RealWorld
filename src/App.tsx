@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import Header from "./Components/Header";
-import Home from "./Components/Home";
-import Login from "./Components/Authorization/Login";
+import Header from "./Components/Header/Header";
+import Home from "./Components/Home/Home";
+import Login from "./Components/Authorization/Login/Login";
 import Signup from "./Components/Authorization/Signup";
-import NotFoundPage from "./Components/NotFoundPage";
-import Article from "./Components/Article";
-import Profile from "./Components/Profile";
-import ContentLayout from "./Components/ContentLayout";
+import NotFound from "./Components/NotFound/NotFound";
+import Article from "./Components/Article/Article";
+import Profile from "./Components/Profile/Profile";
+import ContentLayout from "./Components/ContentLayout/ContentLayout";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/article/:slug" element={<Article />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </ContentLayout>
     </>

@@ -18,27 +18,20 @@ export interface Article {
   updatedAt: string
 }
 
-export interface currentArticle {
+export interface CurrentArticle {
   [key: string] : string
 }
 
-export interface AuthorComments {
-  username: string,
-  image: string,
-  bio: null,
-  following: boolean,
-}
-
-export interface Comments {
+export interface Comment {
   id: number,
   createdAt: Date,
   updatedAt: Date,
   body: string,
-  author: AuthorComments
+  author: User
 }
 
-export interface commentsState {
-  comments: Comments[];
+export interface CommentsState {
+  comments: Comment[];
   loading: boolean;
 }
 
@@ -53,7 +46,7 @@ export type SignupData = {
   password: string;
 };
 
-export interface authState {
+export interface AuthState {
   login: string;
   email: string;
   token: string;

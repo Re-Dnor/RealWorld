@@ -11,6 +11,7 @@ export default function ContentLayout(props: ContentLayoutProps) {
       <CssBaseline />
       <Box
         sx={{
+          marginTop: 8,
           display: "flex",
           flexDirection: "row",
           alignItems: "start"

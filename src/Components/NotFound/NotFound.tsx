@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography, Container, CssBaseline } from "@mui/material";
 
-export default function NotFoundPage() {
+export default function NotFound() {
   const navigate = useNavigate();
 
   const hadleClick = () => {
@@ -25,7 +25,7 @@ export default function NotFoundPage() {
           404
         </Typography>
         <Typography variant="h6" style={{ color: "black" }}>
-          The page you’re looking for doesn’t exist.
+          The page you are looking for does not exist.
         </Typography>
         <Button variant="contained" onClick={hadleClick}>
           Back Home

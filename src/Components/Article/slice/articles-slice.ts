@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { Article } from "../../types";
-import { BASE_URL, SLICES_NAMES } from "../../utils/constants";
-import { DataArticle } from "../Home";
+import { Article } from "../../../types";
+import { BASE_URL, SLICES_NAMES } from "../../../utils/constants";
+import { HomeData } from "../../Home/Home";
 
 export interface ArticlesState {
   articlesList: Article[];
@@ -16,13 +16,13 @@ const initialState: ArticlesState = {
   filter: "all"
 };
 
-export const fetchArticles = createAsyncThunk("articles/fetchArticles", async (data: DataArticle) => {
-  const { count, filter } = data;
+export const fetchArticles = createAsyncThunk("articles/fetchArticles", async (data: HomeData) => {
+  const { currentPage, filter } = data;
   let URL: string;
   if (filter === "all") {
-    URL = `${BASE_URL}/articles?limit=5&offset=${count}`;
+    URL = `${BASE_URL}/articles?limit=5&offset=${currentPage}`;
   } else {
-    URL = `${BASE_URL}/articles?tag=${filter}&limit=5&offset=${count}`;
+    URL = `${BASE_URL}/articles?tag=${filter}&limit=5&offset=${currentPage}`;
   }
   const response = await fetch(URL);
   return response.json();

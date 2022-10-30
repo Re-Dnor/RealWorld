@@ -1,9 +1,9 @@
 import { Grid, Paper, Typography, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { setActiveFilter } from "../Article/articles-slice";
-import { DataArticle } from "../Home";
-import { fetchArticles } from "../Article/articles-slice";
+import { setActiveFilter } from "../Article/slice/articles-slice";
+import { HomeData } from "../Home/Home";
+import { fetchArticles } from "../Article/slice/articles-slice";
 import { TAGS } from "../../utils/constants";
 
 type SidebarProps = {
@@ -15,8 +15,8 @@ export default function Sidebar({ page }: SidebarProps) {
   const { filter } = useSelector((store: RootState) => store.articles);
 
   const handleUsedFilter = (tag: string): void => {
-    const data: DataArticle = {
-      count: page,
+    const data: HomeData = {
+      currentPage: page,
       filter: tag
     };
     dispatch(setActiveFilter(tag));
@@ -24,7 +24,7 @@ export default function Sidebar({ page }: SidebarProps) {
   };
 
   return (
-    <Grid item xs={12} md={4} mr={4} mt={8}>
+    <Grid item xs={12} md={4} mr={4}>
       <Paper elevation={0} sx={{ p: 2, bgcolor: "grey.200" }}>
         <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
           Popular Tags

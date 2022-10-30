@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { commentsState } from "../../types";
-import { BASE_URL, SLICES_NAMES } from "../../utils/constants";
+import { CommentsState } from "../../../types";
+import { BASE_URL, SLICES_NAMES } from "../../../utils/constants";
 
 export const fetchComments = createAsyncThunk("comments/fetchComments", async (slug: string) => {
   const URL = `${BASE_URL}/articles/${slug}/comments`;
@@ -9,7 +9,7 @@ export const fetchComments = createAsyncThunk("comments/fetchComments", async (s
   return response.json();
 });
 
-const initialState: commentsState = {
+const initialState: CommentsState = {
   comments: [],
   loading: false
 };
