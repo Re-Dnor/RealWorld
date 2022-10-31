@@ -32,7 +32,7 @@ function App() {
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/profile" element={ authorization ? <Profile /> : <Navigate to="/"/>} />
-          <Route path="/article/:slug" element={authorization ? <Article /> : <Navigate to="/"/>} />
+          <Route path="/article/:slug" element={<Article />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ContentLayout>

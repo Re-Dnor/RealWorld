@@ -18,7 +18,7 @@ export default function CurrentArticle() {
   
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "column", padding: "15px" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", padding: "15px", width: "100%" }}>
         <Avatar src={article.image} sx={{ marginBottom: "15px" }} />
         <Typography variant="h6">{article.title}</Typography>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
@@ -36,7 +36,8 @@ export default function CurrentArticle() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 2
+          gap: 2,
+          width: "100%"
         }}
       >
         {getComments()}
