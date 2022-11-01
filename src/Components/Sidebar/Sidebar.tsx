@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "../../store/store";
 import { setActiveFilter } from "../Article/slice/articles-slice";
 import { HomeData } from "../Home/Home";
 import { fetchArticles } from "../Article/slice/articles-slice";
-import { TAGS } from "../../utils/constants";
+import { SLICES_NAMES, TAGS } from "../../utils/constants";
 
 type SidebarProps = {
   page: number;
@@ -12,7 +12,7 @@ type SidebarProps = {
 
 export default function Sidebar({ page }: SidebarProps) {
   const dispatch = useDispatch<AppDispatch>();
-  const { filter } = useSelector((store: RootState) => store.articles);
+  const { filter, currentFeed } = useSelector((store: RootState) => store.articles);
 
   const handleUsedFilter = (tag: string): void => {
     const data: HomeData = {
@@ -20,7 +20,7 @@ export default function Sidebar({ page }: SidebarProps) {
       filter: tag
     };
     dispatch(setActiveFilter(tag));
-    dispatch(fetchArticles(data));
+    if (currentFeed === SLICES_NAMES.GLOBAL_FEED) dispatch(fetchArticles(data));
   };
 
   return (

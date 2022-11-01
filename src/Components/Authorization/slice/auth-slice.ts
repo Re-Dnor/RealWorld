@@ -10,6 +10,7 @@ function setUserData(state, action) {
   state.image = action.payload.user.username;
   state.authorization = true;
   localStorage.setItem("token", action.payload.user.token);
+  localStorage.setItem("email", action.payload.user.email);
 }
 
 export const fetchLogin = createAsyncThunk("auth/fetchLogin", async (data: LoginData, { rejectWithValue }) => {
@@ -76,6 +77,12 @@ export const authSlice = createSlice({
     },
     login: (state) => {
       state.authorization = true;
+    },
+    getData: (state, action) => {
+      state.email = action.payload.email;
+    },
+    resetData: (state) => {
+      state.email = "";
     }
   },
   extraReducers: (builder) => {
@@ -105,5 +112,5 @@ export const authSlice = createSlice({
   }
 });
 
-export const { logout, login } = authSlice.actions;
+export const { logout, login, getData, resetData } = authSlice.actions;
 export default authSlice.reducer;

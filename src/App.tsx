@@ -10,7 +10,7 @@ import Article from "./Components/Article/Article";
 import Profile from "./Components/Profile/Profile";
 import ContentLayout from "./Components/ContentLayout/ContentLayout";
 import { useEffect } from "react";
-import { login } from "./Components/Authorization/slice/auth-slice";
+import { login, getData } from "./Components/Authorization/slice/auth-slice";
 
 function App() {
   const { authorization } = useSelector((store: RootState) => store.auth);
@@ -18,8 +18,10 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const localEmail = localStorage.getItem("email");
     if (token) {
       dispatch(login());
+      dispatch(getData({ email: localEmail }));
     }
   }, []);
 

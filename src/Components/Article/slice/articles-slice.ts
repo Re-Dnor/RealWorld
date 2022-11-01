@@ -7,11 +7,13 @@ import { HomeData } from "../../Home/Home";
 export interface ArticlesState {
   articlesList: Article[];
   loading: boolean;
+  currentFeed: SLICES_NAMES.MY_FEED | SLICES_NAMES.GLOBAL_FEED;
   filter: string;
 }
 
 const initialState: ArticlesState = {
   articlesList: [],
+  currentFeed: SLICES_NAMES.GLOBAL_FEED,
   loading: false,
   filter: "all"
 };
@@ -28,12 +30,21 @@ export const fetchArticles = createAsyncThunk("articles/fetchArticles", async (d
   return response.json();
 });
 
+export const fetchArticlesMy = createAsyncThunk("articles/fetchArticlesMy", async (page: number) => {
+  const URL = `${BASE_URL}/articles/feed?limit=5&offset=${page}`;
+  const response = await fetch(URL);
+  return response.json();
+});
+
 export const articlesSlice = createSlice({
   name: SLICES_NAMES.ARTICLES,
   initialState,
   reducers: {
     setActiveFilter: (state, action) => {
       state.filter = action.payload;
+    },
+    switchCurrentFeed: (state, action) => {
+      state.currentFeed = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -48,8 +59,17 @@ export const articlesSlice = createSlice({
       state.loading = false;
       toast.error("No articles");
     });
+    // MY ARTICLES
+    builder.addCase(fetchArticlesMy.fulfilled, (state, action) => {
+      state.loading = false;
+      state.articlesList = action.payload.articles;
+    });
+    builder.addCase(fetchArticlesMy.rejected, (state) => {
+      state.loading = false;
+      toast.error("No articles");
+    });
   }
 });
 
-export const { setActiveFilter } = articlesSlice.actions;
+export const { setActiveFilter, switchCurrentFeed } = articlesSlice.actions;
 export default articlesSlice.reducer;

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Pagination, Stack, Button, Typography } from "@mui/material";
+import { Box, Pagination, Stack, Typography } from "@mui/material";
 import * as _ from "lodash";
 import ArticleCard from "./ArticleCard";
 import Progress from "../Progress/Progress";
 import Sidebar from "../Sidebar/Sidebar";
+import Feeds from "./Feeds";
 import { Article } from "../../types";
 import { AppDispatch, RootState } from "../../store/store";
 import { fetchArticles } from "../Article/slice/articles-slice";
@@ -25,9 +26,16 @@ export default function Home() {
       currentPage: page,
       filter
     };
+
     dispatch(fetchArticles(data));
-    setPagesCount(articlesList.length);
-  }, [ articlesList.length ]);
+  }, []);
+
+  useEffect(() => {
+    if (articlesList?.length) setPagesCount(articlesList.length);
+    else {
+      setPagesCount(0);
+    }
+  }, [ articlesList ]);
 
   const handleChange = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const ariaLabel = e.currentTarget.ariaLabel;
@@ -41,7 +49,7 @@ export default function Home() {
   };
 
   const getArticlesList = () => {
-    if (!articlesList.length) return <Typography>Articles are not found.</Typography>;
+    if (!articlesList?.length) return <Typography>Articles are not found.</Typography>;
     return articlesList.map((artcl: Article) => (
       <ArticleCard key={_.uniqueId("card-")} artcl={artcl} />
     ));
@@ -60,9 +68,7 @@ export default function Home() {
           gap: 5
         }}
       >
-        <Button color="primary" name="profile">
-          Global Feed
-        </Button>
+        <Feeds page={page} filter={filter} />
         {loading ? (
           <Progress />
         ) : (

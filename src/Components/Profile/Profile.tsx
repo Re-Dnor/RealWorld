@@ -5,7 +5,7 @@ import { RootState } from "../../store/store";
 
 export default function Profile() {
   const user = useSelector((store: RootState) => store.auth);
-
+  
   return (
     <Box sx={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
       <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
