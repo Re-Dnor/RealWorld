@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { Article } from "../../../types";
 import { BASE_URL, SLICES_NAMES } from "../../../utils/constants";
 import { HomeData } from "../../Home/Home";
+import { FeedsData } from "../../Home/Feeds";
 
 export interface ArticlesState {
   articlesList: Article[];
@@ -30,9 +31,15 @@ export const fetchArticles = createAsyncThunk("articles/fetchArticles", async (d
   return response.json();
 });
 
-export const fetchArticlesMy = createAsyncThunk("articles/fetchArticlesMy", async (page: number) => {
-  const URL = `${BASE_URL}/articles/feed?limit=5&offset=${page}`;
-  const response = await fetch(URL);
+export const fetchArticlesMy = createAsyncThunk("articles/fetchArticlesMy", async (data: FeedsData) => {
+  const { currentPage, token } = data;
+  const URL = `${BASE_URL}/articles/feed?limit=5&offset=${currentPage}`;
+  const response = await fetch(URL, {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    }
+  });
   return response.json();
 });
 

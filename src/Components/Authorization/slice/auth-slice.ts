@@ -80,6 +80,7 @@ export const authSlice = createSlice({
     },
     getData: (state, action) => {
       state.email = action.payload.email;
+      state.token = action.payload.token;
     },
     resetData: (state) => {
       state.email = "";

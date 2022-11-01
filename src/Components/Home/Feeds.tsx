@@ -10,16 +10,26 @@ type Props = {
   filter: string;
 };
 
+export type FeedsData = {
+  currentPage: number;
+  token: string
+};
+
 function Feeds({ page, filter }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const { currentFeed } = useSelector((store: RootState) => store.articles);
-  const { authorization } = useSelector((store: RootState) => store.auth);
+  const { authorization, token } = useSelector((store: RootState) => store.auth);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const name = e.currentTarget.name;
+    const data: FeedsData = {
+      currentPage: page,
+      token
+    };
+
     dispatch(switchCurrentFeed(name));
     if (currentFeed === name) return;
-    if (name === SLICES_NAMES.MY_FEED) dispatch(fetchArticlesMy(page));
+    if (name === SLICES_NAMES.MY_FEED) dispatch(fetchArticlesMy(data));
     if (name === SLICES_NAMES.GLOBAL_FEED) {
       const data: HomeData = {
         currentPage: page,

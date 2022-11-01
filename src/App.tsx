@@ -21,7 +21,7 @@ function App() {
     const localEmail = localStorage.getItem("email");
     if (token) {
       dispatch(login());
-      dispatch(getData({ email: localEmail }));
+      dispatch(getData({ email: localEmail, token }));
     }
   }, []);
 
